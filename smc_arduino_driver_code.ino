@@ -101,7 +101,7 @@ void pidInit() {
 ////////////////////// MAIN CODE ////////////////////////////////////////
 
 unsigned long serialCommTime, serialCommSampleTime = 10; //ms -> (1000/sampleTime) hz
-unsigned long pidTime, pidSampleTime = 5; //ms -> (1000/sampleTime) hz
+unsigned long pidTime, pidSampleTime = 500; //us -> (1000000/sampleTime) hz
 
 void setup() {
   Serial.begin(115200);
@@ -130,7 +130,7 @@ void setup() {
 
   
   serialCommTime = millis();
-  pidTime = millis();
+  pidTime = micros();
 }
 
 
@@ -152,8 +152,8 @@ void loop() {
     motorA.sendPWM((int)outputA);
     motorB.sendPWM((int)outputB); 
   }
-  // if ((millis() - pidTime) >= pidSampleTime) {
-  //   pidTime = millis();
+  // if ((micros() - pidTime) >= pidSampleTime) {
+  //   pidTime = micros();
   // }
   //////////////////////////////////////////////////////////////////////////
 
